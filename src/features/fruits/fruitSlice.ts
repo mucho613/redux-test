@@ -1,5 +1,4 @@
-import { createSelector, type PayloadAction } from "@reduxjs/toolkit"
-import { createAppSlice } from "../../app/createAppSlice"
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
 
 export interface FruitSliceState {
   fruits: string[];
@@ -9,7 +8,7 @@ const initialState: FruitSliceState = {
   fruits: [],
 }
 
-export const fruitSlice = createAppSlice({
+export const fruitSlice = createSlice({
   name: "fruit",
   initialState,
   reducers: create => ({
@@ -20,14 +19,9 @@ export const fruitSlice = createAppSlice({
     ),
   }),
   selectors: {
-    selectFruitWithoutApple: createSelector(
-      (state: FruitSliceState) => state.fruits,
-      fruits => fruits.filter(fruit => fruit !== "Apple")
-    ),
+    selectFruitWithoutApple: state => state.fruits.filter(fruit => fruit !== "Apple")
   },
 })
 
-export const { add } =
-  fruitSlice.actions
-
+export const { add } = fruitSlice.actions
 export const { selectFruitWithoutApple } = fruitSlice.selectors
